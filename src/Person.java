@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class Person {
 
     private String name;
@@ -43,5 +48,17 @@ public class Person {
                 ", sex=" + sex +
                 ", education=" + education +
                 '}';
+    }
+
+    public Collection<Person> filter (Collection<Person> persons) {
+        List<Person> people = new ArrayList<>();
+        for (Person person : persons) {
+            if (person.getSex() == Sex.WOMAN && person.getAge() < 60) {
+                people.add(person);
+            } else if (person.getSex() == Sex.MAN && person.getAge() < 65) {
+                people.add(person);
+            }
+        }
+        return people;
     }
 }

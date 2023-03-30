@@ -1,8 +1,6 @@
-import java.util.Collection;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,5 +17,26 @@ public class Main {
                     Education.values()[new Random().nextInt(Education.values().length)])
             );
         }
+
+        long minors = persons.stream()
+                .filter(Person -> Person.getAge() < 18)
+                .count();
+        System.out.println("Количество несовершеннолетних: " + minors + " человек(а)");
+
+        List<String> conscripts = persons.stream()
+                .filter(Person -> Person.getAge() >= 18 && Person.getAge() < 27)
+                .map(Person::getFamily)
+                .collect(Collectors.toList());
+        //System.out.println(conscripts);
+
+        Collection<Person> workablePeople = persons.stream()
+                .filter(Person -> Person.getAge() >= 18)
+                .filter(Person -> Person.getEducation() == Education.HIGHER)
+                .filter(Person -> (Person.getSex() == Sex.WOMAN && Person.getAge() < 60)
+                        || (Person.getSex() == Sex.MAN && Person.getAge() < 65))
+                .sorted(Comparator.comparing(Person::getFamily))
+                .collect(Collectors.toList());
+        System.out.println(workablePeople);
+
     }
 }
