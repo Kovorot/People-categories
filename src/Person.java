@@ -1,17 +1,12 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 public class Person {
 
-    private String name;
-    private String family;
-    private Integer age;
-    private Sex sex;
-    private Education education;
+    private final String name;
+    private final String family;
+    private final Integer age;
+    private final Sex sex;
+    private final Education education;
 
-    public Person (String name, String family, Integer age, Sex sex, Education education) {
+    public Person(String name, String family, Integer age, Sex sex, Education education) {
         this.name = name;
         this.family = family;
         this.age = age;
@@ -48,17 +43,5 @@ public class Person {
                 ", sex=" + sex +
                 ", education=" + education +
                 '}';
-    }
-
-    public Collection<Person> filter (Collection<Person> persons) {
-        List<Person> people = new ArrayList<>();
-        for (Person person : persons) {
-            if (person.getSex() == Sex.WOMAN && person.getAge() < 60) {
-                people.add(person);
-            } else if (person.getSex() == Sex.MAN && person.getAge() < 65) {
-                people.add(person);
-            }
-        }
-        return people;
     }
 }

@@ -1,6 +1,5 @@
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,17 +17,20 @@ public class Main {
             );
         }
 
+        //Несовершеннолетние
         long minors = persons.stream()
                 .filter(Person -> Person.getAge() < 18)
                 .count();
         System.out.println("Количество несовершеннолетних: " + minors + " человек(а)");
 
+        //Призывники
         List<String> conscripts = persons.stream()
                 .filter(Person -> Person.getAge() >= 18 && Person.getAge() < 27)
                 .map(Person::getFamily)
                 .collect(Collectors.toList());
         //System.out.println(conscripts);
 
+        //Трудоспособные
         Collection<Person> workablePeople = persons.stream()
                 .filter(Person -> Person.getAge() >= 18)
                 .filter(Person -> Person.getEducation() == Education.HIGHER)
@@ -37,6 +39,5 @@ public class Main {
                 .sorted(Comparator.comparing(Person::getFamily))
                 .collect(Collectors.toList());
         System.out.println(workablePeople);
-
     }
 }
